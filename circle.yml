@@ -1,8 +1,6 @@
 machine:
   python:
     version: 3.4.4
-  environment:
-    DJANGO_SETTINGS_MODULE: sscore.settings.ci
 dependencies:
   pre:
     - pip install --upgrade pip
