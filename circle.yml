@@ -25,3 +25,14 @@ deployment:
       - heroku run python manage.py migrate auth --app simplesolar-core-staging
       - heroku run python manage.py migrate --app simplesolar-core-staging
       - heroku ps:scale web=1 --app simplesolar-core-staging
+
+  production:
+    branch: master
+    commands:
+      - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
+      - git push -f git@heroku.com:simplesolar-core.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run python manage.py collectstatic --noinput --app simplesolar-core
+      - heroku run python manage.py makemigrations --app simplesolar-core
+      - heroku run python manage.py migrate auth --app simplesolar-core
+      - heroku run python manage.py migrate --app simplesolar-core
+      - heroku ps:scale web=1 --app simplesolar-core
