@@ -20,7 +20,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY') or 'WellItsNotSoSecret'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY') or 'WellItsNotSoSecret'
+
+DEBUG = os.environ.get('DJANGO_DEBUG_MODE')=='True' or False
 
 ALLOWED_HOSTS = []
 
@@ -132,4 +134,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 # forever-cacheable files and compression support with whitenoise:
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
