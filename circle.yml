@@ -10,7 +10,7 @@ test:
   override:
     - python manage.py test
 #    - bower install
-    - python manage.py collectstatic --noinput
+#    - python manage.py collectstatic --noinput
 #    - coverage run --source=webapp manage.py test sscore
 #  post:
 #    - coveralls
