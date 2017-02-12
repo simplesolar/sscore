@@ -10,8 +10,8 @@ test:
   override:
     - python manage.py test
 #    - bower install
-#    - python manage.py collectstatic --noinput
-#    - coverage run --source=webapp neatpix/manage.py test neatpix --settings=neatpix.settings.testing
+    - python manage.py collectstatic --noinput
+#    - coverage run --source=webapp manage.py test sscore
 #  post:
 #    - coveralls
 deployment:
