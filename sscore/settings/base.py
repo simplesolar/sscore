@@ -13,16 +13,18 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY') or 'WellItsNotSoSecret'
 
-ALLOWED_HOSTS = []
+DEBUG = os.environ.get('DJANGO_DEBUG_MODE')=='True' or False
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -122,6 +125,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# central location for collectstatic to collect static files to:
+# (whitenoise will also serve the from here)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Extra places for staticfinders and collectstatic to find static files.
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+# forever-cacheable files and compression support with whitenoise:
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
